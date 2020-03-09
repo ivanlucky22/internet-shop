@@ -3,10 +3,15 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <div class="mdl-layout__header-row">
-        <span class="mdl-layout__title">Best Internet Icon Shop</span>
+
+    <div class="container" id="container">
+        <div class="card text-center w-100 h-100" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" style="background-color: #e6f1ec; padding: 20px;">Best Internet Icon Shop</h5>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
-    <router-outlet></router-outlet>
   `,
   styles: []
 })

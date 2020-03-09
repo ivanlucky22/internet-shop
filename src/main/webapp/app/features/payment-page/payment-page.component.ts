@@ -8,7 +8,9 @@ import {ROUTES} from '../../shared/constants';
 })
 export class PaymentPageComponent implements OnInit {
 
-    ROUTES = ROUTES;
+    readonly ROUTES = ROUTES;
+
+
 
     constructor() {
     }

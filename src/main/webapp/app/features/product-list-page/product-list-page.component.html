@@ -1,3 +1,15 @@
-<main class="mdl-layout__content">
-    <a [routerLink]="[ROUTES.PAYMENT]" href="#">payment</a>
+<main class="container-fluid">
+
+    <mat-grid-list cols="4" rowHeight="310px">
+        <mat-grid-tile style="min-width: 224px"
+                       *ngFor="let product of productsList">
+            <app-product class="w-100 h-100" [product]="product"></app-product>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-paginator [length]="100"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
 </main>
