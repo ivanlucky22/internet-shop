@@ -1,2 +1,13 @@
-<p>payment-result-page works!</p>
-!!!!!!!!!!
+<div class="container">
+    <div class="row">
+        <i class="material-icons col" style="color: darkgreen; font-size: 62px">
+            check_circle
+        </i>
+    </div>
+    <div class="row">
+        <div class="col">
+            Your order # {{order?.id}} was payed successfully
+        </div>
+    </div>
+    <button mat-raised-button [routerLink]="[ROUTES.HOME]">Return back to the shop</button>
+</div>

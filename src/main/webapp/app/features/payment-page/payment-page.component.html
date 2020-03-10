@@ -1,3 +1,56 @@
-<p>payment-page works!</p>
-<a routerLink="{{ROUTES.PAYMENT_RESULT}}">payment result</a>
-<router-outlet></router-outlet>
+<div class="container">
+
+    <p>
+        <span>{{order?.product.name}} - ${{order?.product.price}} - </span>
+        <mat-icon style="font-size: 33px; vertical-align: sub;">{{order?.product.key}}</mat-icon>
+    </p>
+
+    <form [formGroup]="form" (submit)="onPayCLicked()">
+        <div class="row justify-content-center">
+            <mat-form-field class="col-3">
+                <input matInput mask="0000-0000-0000-0000"
+                       formControlName="creditCard"
+                       placeholder="Credit card number"/>
+                <mat-error *ngIf="form.get('creditCard')?.hasError('required')">
+                    Please input card number
+                </mat-error>
+                <mat-error *ngIf="!form.get('creditCard')?.hasError('required') && form.get('creditCard')?.invalid">
+                    Please input card number in format xxxx-xxxx-xxxx-xxxx
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field class="col-3">
+                <input matInput readonly
+                       [matDatepicker]="expirationDate"
+                       formControlName="expirationDate"
+                       (focus)="expirationDate.open()"
+                       (click)="expirationDate.open()"
+                       [matDatepickerFilter]="noPastDateFilter"
+                       placeholder="Expiration date">
+                <mat-datepicker-toggle matSuffix [for]="expirationDate">
+                </mat-datepicker-toggle>
+                <mat-datepicker #expirationDate startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, expirationDate)"></mat-datepicker>
+                <mat-error *ngIf="form.get('expirationDate')?.hasError('required')">
+                    Please input expiration date
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center">
+            <mat-form-field class="col-3">
+                <input matInput
+                       mask="000"
+                       formControlName="cvc"
+                       placeholder="CVC">
+                <mat-error *ngIf="form.get('cvc')?.invalid">
+                    Please input CVC. It is 3 numbers on the back side of your credit card
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <button mat-raised-button type="submit">Pay</button>
+        </div>
+    </form>
+</div>

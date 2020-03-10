@@ -1,35 +1,36 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {ProductListPageComponent} from './features/product-list-page/product-list-page.component';
 import {ProductListPageModule} from './features/product-list-page/product-list-page.module';
 import {PaymentPageModule} from './features/payment-page/payment-page.module';
 import {PaymentPageComponent} from './features/payment-page/payment-page.component';
 import {ROUTES} from './shared/constants';
+import {PaymentResultPageComponent} from './features/payment-result-page/payment-result-page.component';
+import {PaymentResultPageModule} from './features/payment-result-page/payment-result-page.module';
 
 
-const routes: Routes = [
+const routes: Routes = [ // as lazy loading of modules could be used
     {
         path: '',
         component: ProductListPageComponent
     },
     {
-        path: ROUTES.PAYMENT,
-        component: PaymentPageComponent,
-        children: [
-            {
-                path: ROUTES.PAYMENT_RESULT,
-                loadChildren: () => import('./features/payment-result-page/payment-result-page.module').then(m => m.PaymentResultPageModule)
-            }
-        ]
+        path: ROUTES.PAYMENT+'/:id',
+        component: PaymentPageComponent
+    },
+    {
+        path: ROUTES.PAYMENT_RESULT+'/:id',
+        component: PaymentResultPageComponent
     },
 ];
 
 @NgModule({
     imports: [
         RouterModule.forRoot(routes,
-            { enableTracing: true }),
+            {enableTracing: false}),
         ProductListPageModule,
-        PaymentPageModule
+        PaymentPageModule,
+        PaymentResultPageModule
     ],
     exports: [RouterModule]
 })
